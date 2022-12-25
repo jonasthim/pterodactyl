@@ -1,0 +1,38 @@
+---
+version: '3'
+services:
+  pterodactyl:
+    image: ghcr.io/jonasthim/pterodactyl:main
+    container_name: pterodactyl
+    restart: unless-stopped
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/London
+      - DB_HOST=mariadb
+      - DB_DATABASE=panel
+      - DB_USERNAME=pterodactyl
+      - DB_PASSWORD=pwd123
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=smtp.example.com
+      - MAIL_PORT=25
+      - MAIL_USERNAME=
+      - MAIL_PASSWORD=
+      - MAIL_ENCRYPTION=tls
+      - MAIL_FROM_ADDRESS=no-reply@example.com
+      - MAIL_FROM_NAME="Pterodactyl Panel"
+    restart: unless-stopped
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - TZ=Europe/London
+      - MYSQL_DATABASE=panel
+      - MYSQL_USER=pterodactyl
+      - MYSQL_PASSWORD=pwd123
+    volumes:
+      - /opt/data/testar:/config
+    restart: unless-stopped
