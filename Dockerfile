@@ -1,5 +1,7 @@
 FROM serversideup/s6-overlay:ubuntu-22.04
 
+RUN apt update
+
 RUN apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
